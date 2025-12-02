@@ -1,36 +1,18 @@
-"use client";
+import { auth } from "@/lib/auth";
+import HomeView from "@/modules/home/ui/views/home-view";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
-import { Button } from "@/components/ui/button";
-import { signOut, useSession, } from "@/lib/auth-client";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+export default async function Home() {
 
-export default function Home() {
+  const session = await auth.api.getSession({
+    headers: await headers()
+  })
 
-  const { data: session } = useSession();
-  const router = useRouter();
-
-
-  function handleSignOut() {
-    signOut();
-    router.push("/auth/signin");
-  }
+  if (!session) redirect("/auth/signin");
 
   return (
-    <div>
-      {session?.user ? (
-        <div>
-          <p>Logged in as {session.user.email}</p>
-          <Button onClick={handleSignOut}>Sign Out</Button>
-        </div>
-      ) : (
-        <div>
-          <p>Not logged in</p>
-          <Link href="/auth/signin">
-            <Button>Sign In</Button>
-          </Link>
-        </div>
-      )}
-    </div>
+    <HomeView />
   );
 }
