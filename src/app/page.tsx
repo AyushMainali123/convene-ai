@@ -1,37 +1,36 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { signUp } from "@/lib/auth-client";
-import { useState } from "react";
+import { signOut, useSession, } from "@/lib/auth-client";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
 
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const { data: session } = useSession();
+  const router = useRouter();
 
-  async function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    try {
-      await signUp.email({
-        email,
-        password,
-        name,
-      })
-    } catch (error) {
-      console.error(error)
-    }
+
+  function handleSignOut() {
+    signOut();
+    router.push("/auth/signin");
   }
 
   return (
-    <div className="mx-auto max-w-xl flex items-center justify-center h-screen">
-      <form onSubmit={handleFormSubmit} className="space-y-4">
-        <Input placeholder="Enter your name" type="text" value={name} onChange={(e) => setName(e.target.value)} />
-        <Input placeholder="Enter your email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <Input placeholder="Enter your password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <Button type="submit">Sign Up</Button>
-      </form>
+    <div>
+      {session?.user ? (
+        <div>
+          <p>Logged in as {session.user.email}</p>
+          <Button onClick={handleSignOut}>Sign Out</Button>
+        </div>
+      ) : (
+        <div>
+          <p>Not logged in</p>
+          <Link href="/auth/signin">
+            <Button>Sign In</Button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
