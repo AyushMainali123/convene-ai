@@ -15,6 +15,8 @@ import {
     SidebarSeparator
 } from "@/components/ui/sidebar";
 import { DashboardUserButton } from "./dashboard-user-button";
+import { cn } from "@/lib/utils";
+import { usePathname, useRouter } from "next/navigation";
 
 
 const firstSection = [
@@ -41,6 +43,7 @@ const secondSection = [
 
 export const DashboardSidebar = () => {
 
+    const pathname = usePathname();
 
     return (
         <Sidebar>
@@ -65,7 +68,7 @@ export const DashboardSidebar = () => {
                         <SidebarMenu>
                             {firstSection.map((item) => (
                                 <SidebarMenuItem key={item.label}>
-                                    <SidebarMenuButton asChild tooltip={item.label}>
+                                    <SidebarMenuButton asChild tooltip={item.label} className={cn(pathname === item.href ? "hover:bg-sidebar-primary hover:text-sidebar-primary-foreground  bg-sidebar-primary text-sidebar-primary-foreground" : "")}>
                                         <Link href={item.href}>
                                             <item.icon />
                                             <span>{item.label}</span>
@@ -84,7 +87,7 @@ export const DashboardSidebar = () => {
                         <SidebarMenu>
                             {secondSection.map((item) => (
                                 <SidebarMenuItem key={item.label}>
-                                    <SidebarMenuButton asChild tooltip={item.label}>
+                                    <SidebarMenuButton asChild tooltip={item.label} className={cn(pathname === item.href ? "hover:bg-sidebar-primary hover:text-sidebar-primary-foreground  bg-sidebar-primary text-sidebar-primary-foreground" : "")}>
                                         <Link href={item.href}>
                                             <item.icon />
                                             <span>{item.label}</span>
