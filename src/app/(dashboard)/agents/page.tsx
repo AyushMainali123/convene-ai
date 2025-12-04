@@ -6,6 +6,9 @@ import { ErrorBoundary } from "react-error-boundary";
 import { Suspense } from "react";
 import { AgentsListHeader } from "@/modules/agents/ui/components/agents-list-header";
 
+// Force dynamic rendering to prevent build-time fetch errors
+export const dynamic = 'force-dynamic';
+
 export default async function AgentsPage() {
     const queryClient = getQueryClient();
 
