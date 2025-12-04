@@ -11,7 +11,7 @@ interface INewAgentDialog {
 export function NewAgentDialog({ open, onOpenChange }: INewAgentDialog) {
     return (
         <ResponsiveDialog open={open} onOpenChange={onOpenChange} title="New Agent" description="Create a new agent">
-            <AgentForm onCancel={() => onOpenChange(false)} />
+            <AgentForm onCancel={() => onOpenChange(false)} onSuccess={() => onOpenChange(false)} />
         </ResponsiveDialog>
     )
 }

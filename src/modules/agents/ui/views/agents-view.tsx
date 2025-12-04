@@ -1,11 +1,10 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { ErrorState } from "@/components/ui/error-state";
 import { LoadingState } from "@/components/ui/loading-state";
 import { useTRPC } from "@/trpc/client";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { ErrorComponent } from "next/dist/client/components/error-boundary";
+import { AgentsDataTable } from "../components/data-table";
+import { agentColumns } from "../components/columns";
 
 export default function AgentsView() {
     const trpc = useTRPC();
@@ -13,7 +12,7 @@ export default function AgentsView() {
 
     return (
         <div>
-            {JSON.stringify(agents, null, 2)}
+            <AgentsDataTable columns={agentColumns} data={agents} />
         </div>
     );
 }
