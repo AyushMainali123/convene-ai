@@ -25,7 +25,7 @@ export function DashboardNavbar() {
 
     return (
         <>
-            <nav className="flex items-center h-16 px-4 border-b w-full gap-4">
+            <nav className="flex items-center h-[65px] px-4 border-b w-full gap-4">
                 <div className="flex items-center gap-2">
                     <SidebarTrigger />
                 </div>
