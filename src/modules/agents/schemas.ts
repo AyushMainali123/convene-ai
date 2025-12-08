@@ -11,3 +11,9 @@ export const agentsGetManySchema = z.object({
     pageSize: z.number().min(MIN_PAGE_SIZE).max(MAX_PAGE_SIZE).default(DEFAULT_PAGE_SIZE),
     page: z.number().default(INITIAL_PAGE),
 });
+
+export const agentsUpdateScehma = z.object({
+    id: z.string().min(1, "ID is required"),
+    name: z.string().min(1, "Name is required"),
+    instructions: z.string().min(1, "Instructions is required"),
+});
