@@ -1,16 +1,20 @@
 import { db } from "@/db";
 import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
-import { meetings } from "@/db/schema";
+import { agents, meetings } from "@/db/schema";
 import { z } from "zod";
-import { and, count, desc, eq, getTableColumns, ilike } from "drizzle-orm";
+import { and, count, desc, eq, getTableColumns, ilike, sql } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 import { meetingsGetManySchema, meetingsInsertSchema, meetingsUpdateSchema } from "../schemas";
 
 export const meetingsRouter = createTRPCRouter({
     getOne: protectedProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
         const [meeting] = await db.select({
-            ...getTableColumns(meetings)
-        }).from(meetings).where(and(eq(meetings.id, input.id), eq(meetings.userId, ctx.auth.user.id)));
+            ...getTableColumns(meetings),
+            agent: agents,
+            duration: sql`EXTRACT(EPOCH FROM (ended_at - started_at))`.as("duration")
+        }).from(meetings)
+            .innerJoin(agents, eq(meetings.agentId, agents.id))
+            .where(and(eq(meetings.id, input.id), eq(meetings.userId, ctx.auth.user.id)));
 
         if (!meeting) {
             throw new TRPCError({ code: "NOT_FOUND", message: "meeting not found" })
@@ -21,19 +25,26 @@ export const meetingsRouter = createTRPCRouter({
     getMany: protectedProcedure.input(meetingsGetManySchema).query(async ({ ctx, input }) => {
 
         const meetingsData = await db.select({
-            ...getTableColumns(meetings)
-        }).from(meetings).where(and(
-            eq(meetings.userId, ctx.auth.user.id),
-            ilike(meetings.name, `%${input.search}%`)
-        )).limit(input.pageSize)
+            ...getTableColumns(meetings),
+            agent: agents,
+            duration: sql<number>`EXTRACT(EPOCH FROM (ended_at - started_at))`.as("duration")
+        }).from(meetings)
+            .innerJoin(agents, eq(meetings.agentId, agents.id))
+            .where(and(
+                eq(meetings.userId, ctx.auth.user.id),
+                ilike(meetings.name, `%${input.search}%`)
+            ))
+            .limit(input.pageSize)
             .offset((input.page - 1) * input.pageSize)
             .orderBy(desc(meetings.createdAt), desc(meetings.id));
 
 
-        const [result] = await db.select({ count: count() }).from(meetings).where(and(
-            eq(meetings.userId, ctx.auth.user.id),
-            ilike(meetings.name, `%${input.search}%`)
-        ));
+        const [result] = await db.select({ count: count() }).from(meetings)
+            .innerJoin(agents, eq(meetings.agentId, agents.id))
+            .where(and(
+                eq(meetings.userId, ctx.auth.user.id),
+                ilike(meetings.name, `%${input.search}%`)
+            ));
 
         const totalPages = Math.ceil(result.count / input.pageSize);
 

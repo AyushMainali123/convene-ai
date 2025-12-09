@@ -16,12 +16,22 @@ interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
     onRowClick?: (row: TData) => void
+    emptyState?: {
+        title?: string
+        description?: string
+    }
+}
+
+const DEFAULT_EMPTY_STATE = {
+    title: "No data",
+    description: "No data available"
 }
 
 export function DataTable<TData, TValue>({
     columns,
     data,
-    onRowClick
+    onRowClick,
+    emptyState = DEFAULT_EMPTY_STATE
 }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
@@ -82,8 +92,8 @@ export function DataTable<TData, TValue>({
             ) : (
                 <div className="flex flex-col items-center justify-center py-16 md:py-24 rounded-2xl border border-dashed border-border/50 bg-muted/10">
                     <div className="text-center space-y-2">
-                        <p className="text-muted-foreground text-sm md:text-base">No agents found</p>
-                        <p className="text-xs text-muted-foreground/60">Create your first agent to get started</p>
+                        <p className="text-muted-foreground text-sm md:text-base">{emptyState.title}</p>
+                        <p className="text-xs text-muted-foreground/60">{emptyState.description}</p>
                     </div>
                 </div>
             )}
