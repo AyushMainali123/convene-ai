@@ -12,3 +12,11 @@ export enum TMeetingStatus {
     Processing = "processing",
     Cancelled = "cancelled"
 }
+
+export type TStreamTranscriptItem = {
+    speaker_id: string,
+    type: "speech",
+    text: string,
+    start_ts: number,
+    stop_ts: number
+}
