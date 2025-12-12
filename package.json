@@ -10,9 +10,13 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "tunnel": "ngrok http --domain rhino-harmless-tadpole.ngrok-free.app 3000",
+    "inngest:dev": "pnpm dlx inngest-cli@latest dev"
   },
   "dependencies": {
+    "@ai-sdk/google": "^2.0.46",
+    "@ai-sdk/react": "^2.0.114",
     "@dicebear/collection": "^9.2.4",
     "@dicebear/core": "^9.2.4",
     "@hookform/resolvers": "^5.2.2",
@@ -52,6 +56,7 @@
     "@trpc/client": "^11.7.2",
     "@trpc/server": "^11.7.2",
     "@trpc/tanstack-react-query": "^11.7.2",
+    "ai": "^5.0.112",
     "better-auth": "^1.4.4",
     "class-variance-authority": "^0.7.1",
     "client-only": "^0.0.1",
