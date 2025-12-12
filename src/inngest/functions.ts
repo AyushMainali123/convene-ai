@@ -4,6 +4,7 @@ import { inngest } from "@/inngest/client";
 import { TMeetingStatus, TStreamTranscriptItem } from "@/modules/meetings/types";
 import { eq, inArray } from "drizzle-orm";
 import { createAgent, gemini, TextMessage } from "@inngest/agent-kit";
+import { parseJSONL } from "@/lib/utils";
 
 const systemPrompt = `
 You are an expert summarizer. You write readable, concise, simple content. You are given a transcript of a meeting and you need to summarize it.
@@ -53,11 +54,7 @@ export const meetingsProcessing = inngest.createFunction(
         });
 
         const transcript = await step.run("parse-transcript", async () => {
-            const objects = response
-                .trim()
-                .split("\n")
-                .map(line => JSON.parse(line) as TStreamTranscriptItem);
-
+            const objects = parseJSONL<TStreamTranscriptItem>(response) as TStreamTranscriptItem[];
             return objects;
         });
 

@@ -1,6 +1,7 @@
 import { db } from "@/db";
 import { agents, meetings } from "@/db/schema";
 import { inngest } from "@/inngest/client";
+import { getMeetingInstruction } from "@/lib/model-instructions";
 import { streamClient } from "@/lib/stream-video";
 import { TMeetingStatus } from "@/modules/meetings/types";
 import { WebhookEvent } from "@stream-io/node-sdk";
@@ -75,7 +76,11 @@ export const POST = async (req: Request) => {
             });
 
             realtimeClient.updateSession({
-                instructions: existingAgent.instructions,
+                instructions: getMeetingInstruction({
+                    agentName: existingAgent.name,
+                    agentInstruction: existingAgent.instructions,
+                    meetingName: existingMeeting.name
+                }),
                 modalities: ["text", "audio"],
                 turn_detection: { type: "server_vad" },
             });
