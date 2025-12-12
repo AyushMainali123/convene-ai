@@ -15,6 +15,7 @@ import { UpcomingState } from "../components/upcoming-state";
 import { ActiveState } from "../components/active-state";
 import { CancelledState } from "../components/cancelled-state";
 import { ProcessingState } from "../components/processing-state";
+import { CompletedState } from "../components/completed-state";
 
 export default function MeetingIdView({ meetingid }: { meetingid: string }) {
     const trpc = useTRPC();
@@ -61,7 +62,7 @@ export default function MeetingIdView({ meetingid }: { meetingid: string }) {
                 <div>
                     {meeting.status === "upcoming" && <UpcomingState meetingId={meeting.id} onCancelMeeting={() => { }} isCancelling={false} />}
                     {meeting.status === "processing" && <ProcessingState />}
-                    {meeting.status === "completed" && <div>Completed</div>}
+                    {meeting.status === "completed" && <CompletedState data={meeting} />}
                     {meeting.status === "cancelled" && <CancelledState />}
                     {meeting.status === "active" && <ActiveState meetingId={meeting.id} />}
                 </div>
