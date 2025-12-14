@@ -1,0 +1,1 @@
+export const RECENT_MEETINGS_LIMIT = 3;

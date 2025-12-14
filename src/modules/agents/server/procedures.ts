@@ -73,5 +73,10 @@ export const agentsRouter = createTRPCRouter({
         }).returning();
 
         return createdAgent;
+    }),
+    getAgentsCount: protectedProcedure.query(async ({ ctx }) => {
+        const { auth } = ctx;
+        const [result] = await db.select({ count: count() }).from(agents).where(eq(agents.userId, auth.user.id));
+        return { agentsCount: result.count };
     })
 })

@@ -148,7 +148,7 @@ export const MeetingForm = ({ onSuccess, onCancel, initialValues }: IMeetingForm
                     )}
 
                     <Button type="submit" disabled={isPending}>
-                        {isPending ? "Saving..." : "Save Agent"}
+                        {isPending ? "Saving..." : "Save Meeting"}
                     </Button>
                 </div>
             </form>

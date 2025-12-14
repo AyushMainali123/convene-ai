@@ -19,7 +19,6 @@ export const DashboardTrial = () => {
     return (
         <Card className="w-full shadow-sm border-border ring-1 ring-primary/5 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full pointer-events-none" />
-
             <CardHeader>
                 <div className="flex items-center gap-3 mb-1">
                     <div className="p-2 rounded-md bg-primary/10">
