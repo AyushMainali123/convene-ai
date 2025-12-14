@@ -8,13 +8,12 @@ import Markdown from "react-markdown";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import humanizeDuration from "humanize-duration";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Bot, FileText, Sparkles, Video, Calendar, Clock, ChevronRight, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { ChatUI } from "./chat-ui";
 import { Transcript } from "./transcript";
-import { ms } from "date-fns/locale";
 
 interface Props {
     data: TMeetingGetOne;
@@ -101,13 +100,15 @@ export const CompletedState = ({ data }: Props) => {
                             <TabsContent value="summary" className="h-full m-0 data-[state=active]:flex flex-col">
                                 <ScrollArea className="flex-1 h-full">
                                     <div className="p-6 prose dark:prose-invert max-w-none text-muted-foreground prose-headings:text-foreground prose-strong:text-foreground prose-p:leading-relaxed">
-                                        <div className="flex items-center gap-2 mb-4">
-                                            <Badge variant="secondary" className="gap-1 rounded-sm px-2 py-0.5">
-                                                <Sparkles className="size-3 text-primary fill-primary/10" />
-                                                <span className="text-primary font-medium">AI Generated Summary</span>
-                                            </Badge>
-                                        </div>
-                                        <Markdown>{data.summary || "*No summary available for this meeting.*"}</Markdown>
+
+                                        <Badge variant="secondary" className="gap-1 rounded-sm px-2">
+                                            <Sparkles className="size-3 text-primary fill-primary/10" />
+                                            <span className="text-primary font-medium">AI Generated Summary</span>
+                                        </Badge>
+
+                                        <ScrollArea className="max-h-92">
+                                            <Markdown>{data.summary || "*No summary available for this meeting.*"}</Markdown>
+                                        </ScrollArea>
                                     </div>
                                 </ScrollArea>
                             </TabsContent>
@@ -121,25 +122,7 @@ export const CompletedState = ({ data }: Props) => {
 
                             {/* Ask AI Content */}
                             <TabsContent value="chat" className="h-full m-0 flex-col data-[state=active]:flex">
-                                <ScrollArea className="flex-1 p-4">
-                                    <div className="flex flex-col gap-4 h-full justify-end min-h-[300px] text-center text-muted-foreground text-sm p-4">
-                                        <div className="flex flex-col items-center gap-2 opacity-60">
-                                            <Bot className="size-10" />
-                                            <p>Ask anything about this meeting...</p>
-                                        </div>
-                                    </div>
-                                </ScrollArea>
-                                <div className="p-4 border-t bg-muted/20">
-                                    <div className="relative">
-                                        <Input
-                                            placeholder="Ask a question..."
-                                            className="pr-10 bg-background/50 border-muted-foreground/20 focus-visible:ring-primary/20"
-                                        />
-                                        <Button size="icon" variant="ghost" className="absolute right-1 top-1 size-7 text-primary hover:bg-primary/10 hover:text-primary">
-                                            <Send className="size-3.5" />
-                                        </Button>
-                                    </div>
-                                </div>
+                                <ChatUI meetingId={data.id} agentName={data.agent.name} />
                             </TabsContent>
                         </CardContent>
                     </Tabs>

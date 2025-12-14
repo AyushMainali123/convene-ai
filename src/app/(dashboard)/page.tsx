@@ -10,8 +10,5 @@ export default async function Home() {
   })
 
   if (!session) redirect("/auth/signin");
-
-  return (
-    <HomeView />
-  );
+  return redirect("/agents");
 }

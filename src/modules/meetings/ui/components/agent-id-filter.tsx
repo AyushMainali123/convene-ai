@@ -9,7 +9,6 @@ import { useDebounce } from "@/hooks/use-debounce";
 import { MAX_PAGE_SIZE } from "@/app/constants";
 
 const DEBOUNCE_DELAY = 500;
-const PAGE = 1;
 export const AgentIdFilter = () => {
     const [filters, setFilters] = useMeetingsFilter();
     const [agentsSearch, setAgentSearch] = useState("");

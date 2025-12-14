@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card"
+import Image from "next/image"
 
 interface IAuthLayoutPageProps {
     children: React.ReactNode
@@ -13,10 +14,7 @@ export default function AuthLayoutPage({ children }: IAuthLayoutPageProps) {
                         <CardContent className="grid p-0 md:grid-cols-2">
                             {children}
                             <div className="relative hidden bg-muted md:block">
-                                <div className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale bg-zinc-900" />
-                                <div className="absolute inset-0 flex items-center justify-center text-zinc-400 font-bold text-3xl opacity-20">
-                                    AI SAAS
-                                </div>
+                                <Image draggable={false} src="/auth-cover.png" alt="Auth Cover" fill className="object-cover" />
                             </div>
                         </CardContent>
                     </Card>

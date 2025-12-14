@@ -17,6 +17,7 @@ import {
 import { DashboardUserButton } from "./dashboard-user-button";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import { DashboardTrial } from "./dashboard-trial";
 
 
 const firstSection = [
@@ -100,6 +101,7 @@ export const DashboardSidebar = () => {
                 </SidebarGroup>
             </SidebarContent>
             <SidebarFooter>
+                <DashboardTrial />
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <DashboardUserButton />

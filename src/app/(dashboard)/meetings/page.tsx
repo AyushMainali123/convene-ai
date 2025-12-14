@@ -21,7 +21,9 @@ export default async function MeetingsPage({ searchParams }: IMeetingsPage) {
 
     return (
         <>
-            <MeetingsListHeader />
+            <Suspense>
+                <MeetingsListHeader />
+            </Suspense>
             <HydrationBoundary state={dehydrate(queryclient)}>
                 <Suspense fallback={<MeetingsViewLoadingState />}>
                     <ErrorBoundary FallbackComponent={MeetingsViewErrorState}>

@@ -21,7 +21,12 @@ export default function AgentsView() {
 
     return (
         <div className="px-6 py-4">
-            <DataTable columns={agentColumns} data={agents.items} onRowClick={(data) => router.push(`/agents/${data.id}`)} />
+            <DataTable
+                emptyState={{
+                    title: "No Agents",
+                    description: "You have no agents yet. Create one to get started"
+                }}
+                columns={agentColumns} data={agents.items} onRowClick={(data) => router.push(`/agents/${data.id}`)} />
             <div className="mt-4">
                 <DataPagination
                     page={filter.page}

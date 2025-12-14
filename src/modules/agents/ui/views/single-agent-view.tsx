@@ -37,6 +37,7 @@ export default function SingleAgentView({ agentId }: ISingleAgentViewProps) {
     const removeAgentMutation = useMutation(trpc.agents.remove.mutationOptions({
         onSuccess: async () => {
             await queryClient.invalidateQueries(trpc.agents.getMany.queryOptions({ ...agentsFilter }));
+            await queryClient.invalidateQueries(trpc.premium.getFreeUsage.queryOptions());
             router.replace('/agents');
         },
         onError: (error) => {
