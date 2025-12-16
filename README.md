@@ -70,8 +70,6 @@ ai-saas/
 - **Radix UI** - Accessible component primitives
 - **Tailwind CSS v4** - Utility-first CSS framework
 - **shadcn/ui** - High-quality UI components
-- **Lucide React** - Icon library
-- **Recharts** - Data visualization
 
 #### Form & State Management
 - **React Hook Form** - Form handling
@@ -83,8 +81,8 @@ ai-saas/
 
 ### Prerequisites
 
-- Node.js 20+ 
-- pnpm (recommended) or npm
+- Node.js 22+ 
+- pnpm
 - PostgreSQL database (Neon recommended)
 - Google AI API key
 - Stream Video API credentials
@@ -215,7 +213,7 @@ The application uses a modular architecture with feature-based organization:
 - **premium**: Subscription and upgrade flows
 
 Each module contains:
-- `ui/`: React components and views
+- `ui/`: React components
 - Type definitions and utilities
 
 

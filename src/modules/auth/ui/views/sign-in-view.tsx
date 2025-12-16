@@ -114,7 +114,7 @@ export default function SignInView() {
                     />
                     <div className="flex items-center">
                         <Link
-                            href="#"
+                            href="/auth/forgot-password"
                             className="ml-auto text-sm underline-offset-4 hover:underline"
                         >
                             Forgot your password?
