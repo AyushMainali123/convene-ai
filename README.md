@@ -20,7 +20,7 @@ A comprehensive AI-powered SaaS platform for conducting intelligent video meetin
 ai-saas/
 ├── src/
 │   ├── app/              # Next.js App Router pages
-│   │   ├── (dashboard)/  # Dashboard routes (agents, meetings, settings)
+│   │   ├── dashboard/  # Dashboard routes (agents, meetings, settings)
 │   │   ├── api/          # API routes and webhooks
 │   │   ├── auth/         # Authentication pages
 │   │   └── call/         # Video call interface
@@ -29,7 +29,7 @@ ai-saas/
 │   │   ├── auth/         # Authentication module
 │   │   ├── call/         # Video call module
 │   │   ├── dashboard/    # Dashboard module
-│   │   ├── home/         # Landing page module
+│   │   ├── landing/      # Landing page module
 │   │   ├── meetings/     # Meeting management module
 │   │   ├── premium/      # Premium features module
 │   │   └── settings/     # User settings module
@@ -47,7 +47,6 @@ ai-saas/
 
 #### Core Framework
 - **Next.js 16** - React framework with App Router
-- **React 19** - UI library
 - **TypeScript** - Type-safe development
 
 #### Backend & API
@@ -168,7 +167,7 @@ pnpm start
 
 ## 🎨 UI/UX
 
-The application features a modern, professional "serious SaaS" design with:
+The application features a modern, professional saas design with:
 
 - **Responsive Design**: Mobile-first approach
 - **Accessibility**: WCAG compliant components
