@@ -83,7 +83,7 @@ export const PlanUpgradeBanner = () => {
                                 "transition-all duration-200"
                             )}
                         >
-                            <Link href="/upgrade" className="flex items-center justify-center gap-1.5">
+                            <Link href="/dashboard/upgrade" className="flex items-center justify-center gap-1.5">
                                 <span>Upgrade</span>
                                 <ArrowUpRight className="size-3.5" />
                             </Link>

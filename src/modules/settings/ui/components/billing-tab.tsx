@@ -76,7 +76,7 @@ export function Billing() {
                     !isEnterpriseSubscription && (
                         <CardFooter className="border-t border-sidebar-primary/10 px-6 py-4 flex justify-end items-center">
                             <Button className="font-semibold" asChild>
-                                <Link href="/upgrade">
+                                <Link href="/dashboard/upgrade">
                                     <Zap className="mr-2 h-4 w-4" />
                                     Upgrade
                                 </Link>

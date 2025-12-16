@@ -58,7 +58,7 @@ export const DashboardTrial = () => {
             </CardContent>
             <CardFooter className="pt-2">
                 <Button asChild className="w-full font-semibold shadow-sm" size="lg">
-                    <Link href="/upgrade" className="flex items-center gap-2">
+                    <Link href="/dashboard/upgrade" className="flex items-center gap-2">
                         Upgrade Plan
                         <ArrowUpRight className="w-4 h-4 opacity-50" />
                     </Link>

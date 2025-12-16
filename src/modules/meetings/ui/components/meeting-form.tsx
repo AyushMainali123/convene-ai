@@ -40,7 +40,7 @@ export const MeetingForm = ({ onSuccess, onCancel, initialValues }: IMeetingForm
         onError: (error) => {
             toast.error(error.message);
             if (error.data?.code && error.data.code === "FORBIDDEN") {
-                router.push('/upgrade');
+                router.push('/dashboard/upgrade');
             }
         }
     }));

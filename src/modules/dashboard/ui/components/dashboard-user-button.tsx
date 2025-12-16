@@ -62,7 +62,7 @@ export const DashboardUserButton = () => {
                         <DrawerDescription>{session.user.email}</DrawerDescription>
                     </DrawerHeader>
                     <DrawerFooter>
-                        <Button onClick={() => router.push("/upgrade")}>
+                        <Button onClick={() => router.push("/dashboard/upgrade")}>
                             <CreditCard aria-hidden="true" />
                             Billing
                         </Button>
@@ -123,7 +123,7 @@ export const DashboardUserButton = () => {
                     </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => router.push("/upgrade")}>
+                <DropdownMenuItem onClick={() => router.push("/dashboard/upgrade")}>
                     <CreditCard aria-hidden="true" />
                     Billing
                 </DropdownMenuItem>
