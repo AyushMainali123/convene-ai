@@ -78,7 +78,7 @@ export const DashboardSidebar = () => {
                                     <BotIcon className="size-5" />
                                 </div>
                                 <div className="grid flex-1 text-left text-sm leading-tight">
-                                    <span className="truncate font-bold text-lg tracking-tight">AI SAAS</span>
+                                    <span className="truncate font-bold text-lg tracking-tight">{process.env.NEXT_PUBLIC_APPLICATION_NAME}</span>
                                     <span className="truncate text-xs text-muted-foreground">{currentPlan}</span>
                                 </div>
                             </Link>

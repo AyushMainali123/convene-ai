@@ -131,6 +131,7 @@ export default function SignUpView() {
                                     {...field}
                                     id="password"
                                     type="password"
+                                    placeholder="Enter your password"
                                     aria-invalid={fieldState.invalid}
                                 />
                                 {fieldState.invalid && (

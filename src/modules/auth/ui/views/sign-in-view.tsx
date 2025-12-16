@@ -60,7 +60,7 @@ export default function SignInView() {
                 <div className="flex flex-col items-center text-center">
                     <h1 className="text-2xl font-bold">Welcome back</h1>
                     <p className="text-balance text-muted-foreground">
-                        Login to your AI SAAS account
+                        Login to your {process.env.NEXT_PUBLIC_APPLICATION_NAME} account
                     </p>
                 </div>
                 {error && (
@@ -102,7 +102,7 @@ export default function SignInView() {
                                     {...field}
                                     id="password"
                                     type="password"
-                                    placeholder="m@example.com"
+                                    placeholder="Enter your password"
                                     aria-invalid={fieldState.invalid}
                                     required
                                 />
@@ -114,7 +114,7 @@ export default function SignInView() {
                     />
                     <div className="flex items-center">
                         <Link
-                            href="#"
+                            href="/auth/forgot-password"
                             className="ml-auto text-sm underline-offset-4 hover:underline"
                         >
                             Forgot your password?

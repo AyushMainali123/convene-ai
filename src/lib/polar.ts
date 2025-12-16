@@ -1,5 +1,6 @@
-import { Polar } from "@polar-sh/sdk";
+import 'server-only';
 
+import { Polar } from "@polar-sh/sdk";
 
 if (!process.env.POLAR_ACCESS_TOKEN) {
     throw new Error("POLAR_ACCESS_TOKEN is not defined");
