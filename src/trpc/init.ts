@@ -3,6 +3,7 @@ import { agents, meetings } from '@/db/schema';
 import { auth } from '@/lib/auth';
 import { polarClient } from '@/lib/polar';
 import { MAX_FREE_AGENTS, MAX_FREE_MEETINGS } from '@/modules/premium/constants';
+import { Product } from '@polar-sh/sdk/models/components/product.js';
 import { Subscription } from '@polar-sh/sdk/models/components/subscription.js';
 import { initTRPC, TRPCError } from '@trpc/server';
 import { count, eq } from 'drizzle-orm';
@@ -48,16 +49,16 @@ export const premiumProcedure = (entity: 'agent' | 'meeting') => protectedProced
 
     const hasSubscription = customer.activeSubscriptions.length > 0;
 
-    let subscription: Subscription | null = null;
+    let product: Product | null = null;
 
     if (hasSubscription) {
-        subscription = await polarClient.subscriptions.get({
-            id: customer.activeSubscriptions[0].id
+        product = await polarClient.products.get({
+            id: customer.activeSubscriptions[0].productId
         });
     }
 
-    const agentsLimit = subscription?.metadata.maxAgents as number ?? MAX_FREE_AGENTS;
-    const meetingsLimit = subscription?.metadata.maxMeetings as number ?? MAX_FREE_MEETINGS;
+    const agentsLimit = product?.metadata.maxAgents as number ?? MAX_FREE_AGENTS;
+    const meetingsLimit = product?.metadata.maxMeetings as number ?? MAX_FREE_MEETINGS;
 
     const [userAgents] = await db.select({ count: count() }).from(agents).where(eq(agents.userId, ctx.auth.user.id));
     const [userMeetings] = await db.select({ count: count() }).from(meetings).where(eq(meetings.userId, ctx.auth.user.id));
