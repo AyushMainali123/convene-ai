@@ -28,7 +28,7 @@ export default function MeetingIdView({ meetingid }: { meetingid: string }) {
     const removeMeeting = useMutation(trpc.meetings.remove.mutationOptions({
         onSuccess: async () => {
             await queryClient.invalidateQueries(trpc.meetings.getMany.queryOptions({}));
-            await queryClient.invalidateQueries(trpc.premium.getFreeUsage.queryOptions());
+            await queryClient.invalidateQueries(trpc.premium.getUsage.queryOptions());
             router.replace('/meetings');
         },
         onError: (error) => {

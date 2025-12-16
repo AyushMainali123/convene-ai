@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
@@ -82,7 +84,6 @@ export const DashboardUserButton = () => {
             <DropdownMenuTrigger asChild>
                 <SidebarMenuButton
                     size="lg"
-                    variant={"outline"}
                     className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                 >
                     <Avatar className="h-8 w-8 rounded-lg">
@@ -93,8 +94,10 @@ export const DashboardUserButton = () => {
                     </Avatar>
                     <div className="grid flex-1 text-left text-sm leading-tight">
                         <span className="truncate font-semibold">{session?.user?.name}</span>
+                        <span className="truncate text-xs">{session?.user?.email}</span>
                     </div>
                     <ChevronDown className={cn(
+                        "ml-auto size-4",
                         open && "rotate-180"
                     )} aria-hidden="true" />
                 </SidebarMenuButton>

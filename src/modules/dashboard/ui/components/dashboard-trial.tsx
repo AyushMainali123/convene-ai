@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -9,17 +11,16 @@ import Link from "next/link";
 
 export const DashboardTrial = () => {
     const trpc = useTRPC();
-    const { data } = useQuery(trpc.premium.getFreeUsage.queryOptions());
+    const { data } = useQuery(trpc.premium.getUsage.queryOptions());
 
     if (!data) return null;
 
-    const agentsPercentage = (data.agentsCount / MAX_FREE_AGENTS) * 100;
-    const meetingsPercentage = (data.meetingsCount / MAX_FREE_MEETINGS) * 100;
+    const agentsPercentage = (data.agentsCount / data.maxAgents) * 100;
+    const meetingsPercentage = (data.meetingsCount / data.maxMeetings) * 100;
 
     return (
         <Card className="w-full shadow-sm border-border ring-1 ring-primary/5 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full pointer-events-none" />
-
             <CardHeader>
                 <div className="flex items-center gap-3 mb-1">
                     <div className="p-2 rounded-md bg-primary/10">

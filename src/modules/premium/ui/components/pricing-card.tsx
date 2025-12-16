@@ -66,7 +66,7 @@ export function PricingCard({
                         }).format(price)}
                     </span>
                     <span className="text-muted-foreground font-medium text-lg">
-                        /{priceSuffix}
+                        {priceSuffix}
                     </span>
                 </div>
 

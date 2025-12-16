@@ -13,7 +13,7 @@ export default function UpgradeView() {
     const { data: currentSubscription } = useSuspenseQuery(trpc.premium.getCurrentSubscription.queryOptions());
 
     const standardPlan = products.find(product => product.name === "Standard");
-    const yearlyPlan = products.find(product => product.name === "Yearly");
+    const premiumPlan = products.find(product => product.name === "Premium");
     const enterprisePlan = products.find(product => product.name === "Enterprise");
 
     return (
@@ -40,7 +40,7 @@ export default function UpgradeView() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
 
                 {
-                    [standardPlan, yearlyPlan, enterprisePlan].map(product => {
+                    [standardPlan, premiumPlan, enterprisePlan].map(product => {
                         if (!product) return null;
                         const isCurrentProduct = product.id === currentSubscription?.id;
                         const isPremium = !!currentSubscription;
@@ -65,7 +65,7 @@ export default function UpgradeView() {
                             <PricingCard
                                 key={product.id}
                                 variant={product.metadata.variant === "highlighted" ? "highlighted" : "default"}
-                                badge={product.metadata.variant === "highlighted" ? "Most Popular" : undefined}
+                                badge={product.metadata.badge as string | undefined}
                                 price={product.prices[0].amountType === "fixed" ? product.prices[0].priceAmount / 100 : 0}
                                 features={product.benefits.map(benefit => benefit.description)}
                                 title={product.name}

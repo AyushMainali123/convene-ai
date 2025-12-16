@@ -2,7 +2,7 @@ import { db } from "@/db";
 import { createTRPCRouter, premiumProcedure, protectedProcedure } from "@/trpc/init";
 import { agents, meetings, user } from "@/db/schema";
 import { z } from "zod";
-import { and, count, desc, eq, getTableColumns, ilike, inArray, sql } from "drizzle-orm";
+import { and, count, desc, eq, getTableColumns, gte, ilike, inArray, sql } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 import { meetingsGetManySchema, meetingsInsertSchema, meetingsUpdateSchema } from "../schemas";
 import { streamClient } from "@/lib/stream-video";
@@ -88,6 +88,15 @@ export const meetingsRouter = createTRPCRouter({
 
 
         return { items: meetingsData, count: result.count, totalPages };
+    }),
+    getMeetingsCount: protectedProcedure.query(async ({ ctx }) => {
+        const [result] = await db.select({ count: count() }).from(meetings)
+            .where(eq(meetings.userId, ctx.auth.user.id));
+
+        const [meetingsOfThisWeek] = await db.select({ count: count() }).from(meetings)
+            .where(and(eq(meetings.userId, ctx.auth.user.id), gte(meetings.createdAt, sql`now() - interval '1 week'`)));
+
+        return { totalMeetings: result.count, meetingsOfThisWeek: meetingsOfThisWeek.count };
     }),
     create: premiumProcedure("meeting").input(meetingsInsertSchema).mutation(async ({ ctx, input }) => {
         const [meeting] = await db.insert(meetings).values({

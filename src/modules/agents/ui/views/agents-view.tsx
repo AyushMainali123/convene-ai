@@ -20,11 +20,11 @@ export default function AgentsView() {
     }));
 
     return (
-        <div className="px-6 py-4">
+        <div className="px-4 sm:px-6 lg:px-8 py-4">
             <DataTable
                 emptyState={{
-                    title: "No Agents",
-                    description: "You have no agents yet. Create one to get started"
+                    title: "Create your first agent",
+                    description: "Build your workforce of intelligent AI agents to automate your tasks."
                 }}
                 columns={agentColumns} data={agents.items} onRowClick={(data) => router.push(`/agents/${data.id}`)} />
             <div className="mt-4">
